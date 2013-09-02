@@ -2,6 +2,7 @@ package krathong.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -20,28 +21,44 @@ public final class SplashScreen extends JWindow implements Runnable {
 	private final int WIDTH = 400;
 
 	private JProgressBar progressBar;
+	private Thread runner;
+	private String name;
+	private String icon;
 	
 	public SplashScreen(String name, String dev, String version, String icon){
 		
+		this.name = name;
+		this.icon = icon;
 		setAlwaysOnTop(true);
 		setLayout(new BorderLayout());
-		add(new backgroundPanel());
 		progressBar = new JProgressBar(0, 10);
 		progressBar.setValue(5);
-		//add(drawText(name, dev, version, icon), BorderLayout.CENTER);
+		add(drawText(name, dev, version, icon), BorderLayout.CENTER);
 		add(progressBar, BorderLayout.SOUTH);
 		setVisible(true);
 		setSize(WIDTH, HEIGHT);
 		setLocationRelativeTo(null);
+		progressRunner();
+		
+	}
+	
+	private void progressRunner(){
+		
+		runner = new Thread(this);
+		runner.start();
 		
 	}
 	
 	private JPanel drawText(String name, String dev, String version, String icon){
 		
-		JPanel outer = new JPanel();
+		JPanel outer = new backgroundPanel();
 		outer.setLayout(new GridLayout(3,1));
-		
+		JLabel appName = new JLabel(name + " " + version);
+		appName.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		JLabel devName = new JLabel(dev);
+		devName.setFont(new Font("Lucida Grande", Font.TRUETYPE_FONT, 12));
+		outer.add(appName);
+		outer.add(devName);
 		
 		return outer;
 		
@@ -50,7 +67,7 @@ public final class SplashScreen extends JWindow implements Runnable {
 
 		private static final long serialVersionUID = 1L;
 
-		public void paint(Graphics g){
+		public void paintComponent(Graphics g){
 
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
@@ -65,10 +82,23 @@ public final class SplashScreen extends JWindow implements Runnable {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		
+		for(int i = 0; i <= 10; i++){
+			try {
+				Thread.sleep(500);
+				progressBar.setValue(progressBar.getValue());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
+		new MainFrame(name, icon);
+		dispose();
+		runner.stop();
 		
 	}
 	

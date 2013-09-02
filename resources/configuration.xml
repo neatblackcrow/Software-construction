@@ -10,13 +10,13 @@
         <windows_state>normal</windows_state>
     </setting>
     <info>
-        <name>Krathong 1.0</name>
+        <name>Krathong 2013</name>
         <description>This is the part of 01418217 Software Construction.</description>
-        <version>1.0 build 1</version>
+        <version>v 1.0 build 1</version>
     </info>
     <file>
         <help>./resources/help.html</help>
-	<icon>./resources/icon.png</icon>
+	<icon>./resources/icon.gif</icon>
 	<font>./resources/lucida_grande.ttf</font>
     </file>
 </config>
