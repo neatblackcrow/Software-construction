@@ -1,16 +1,8 @@
-<!ELEMENT config (setting, info, file)>
+<!ELEMENT config (setting)>
 <!ELEMENT setting (theme, water_shade_color, water_color, thread_manager, thread_manual_threshold, windows_state)>
-<!ELEMENT info (name, description, version)>
-<!ELEMENT file (help, icon, font)>
 <!ELEMENT theme (#PCDATA)>
 <!ELEMENT water_shade_color (#PCDATA)>
 <!ELEMENT water_color (#PCDATA)>
 <!ELEMENT thread_manager (#PCDATA)>
 <!ELEMENT thread_manual_threshold (#PCDATA)>
 <!ELEMENT windows_state (#PCDATA)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT description (#PCDATA)>
-<!ELEMENT version (#PCDATA)>
-<!ELEMENT help (#PCDATA)>
-<!ELEMENT icon (#PCDATA)>
-<!ELEMENT font (#PCDATA)>

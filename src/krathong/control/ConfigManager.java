@@ -21,8 +21,6 @@ public final class ConfigManager {
 	private Document configDoc;
 	
 	private Node config;
-	private Node info;
-	private Node file;
 	
 	private Node theme;
 	private Node waterShadeColor;
@@ -30,15 +28,6 @@ public final class ConfigManager {
 	private Node threadManager;
 	private Node threadManualThreshold;
 	private Node windowState;
-	
-	private Node name;
-	private final String dev = "Voravut Nateluercha";
-	private Node description;
-	private Node version;
-	
-	private Node help;
-	private Node icon;
-	private Node font;
 	
 	public final String THEME_SEAGLASS = "SeaGlass";
 	public final String THEME_OSDEFAULT  = "OSDefault";
@@ -54,12 +43,8 @@ public final class ConfigManager {
 	public ConfigManager(){
 		
 		final String SETTING_NODE = "setting";
-		final String INFO_NODE = "info";
-		final String FILE_NODE = "file";
 		configDoc = getDocument("./resources/configuration.xml");
 		config = configDoc.getElementsByTagName(SETTING_NODE).item(0);
-		info = configDoc.getElementsByTagName(INFO_NODE).item(0);
-		file = configDoc.getElementsByTagName(FILE_NODE).item(0);
 		loadContent();
 		
 	}
@@ -73,12 +58,6 @@ public final class ConfigManager {
 		threadManager = config.getChildNodes().item(3);
 		threadManualThreshold = config.getChildNodes().item(4);
 		windowState = config.getChildNodes().item(5);
-		name = info.getChildNodes().item(0);
-		description = info.getChildNodes().item(1);
-		version = info.getChildNodes().item(2);
-		help = file.getChildNodes().item(0);
-		icon = file.getChildNodes().item(1);
-		font = file.getChildNodes().item(2);
 		
 	}
 	
@@ -175,34 +154,6 @@ public final class ConfigManager {
 
 	public void setWindowState(String windowState) {
 		this.windowState.setTextContent(windowState);
-	}
-
-	public String getName() {
-		return name.getTextContent();
-	}
-
-	public String getDev() {
-		return dev;
-	}
-
-	public String getDescription() {
-		return description.getTextContent();
-	}
-
-	public String getVersion() {
-		return version.getTextContent();
-	}
-
-	public String getHelp() {
-		return help.getTextContent();
-	}
-	
-	public String getIcon(){
-		return icon.getTextContent();
-	}
-	
-	public String getFont(){
-		return font.getTextContent();
 	}
 	
 }

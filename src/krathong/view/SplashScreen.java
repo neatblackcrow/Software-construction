@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -22,40 +23,42 @@ public final class SplashScreen extends JWindow implements Runnable {
 
 	private JProgressBar progressBar;
 	private Thread runner;
-	private String name;
-	private String icon;
+	private final String APP_NAME = "Krathong 2013";
+	private final String DEV_NAME = "Voravut Nateluercha";
+	private final String VERSION = "1.0 build 1";
+	private final String DESCRIPTION = "This is the part of 01418217 Software Construction.";
 	
-	public SplashScreen(String name, String dev, String version, String icon){
+	private final String loadedWindowState;
+	
+	public SplashScreen(String windowState){
 		
-		this.name = name;
-		this.icon = icon;
+		loadedWindowState = windowState;
 		setAlwaysOnTop(true);
 		setLayout(new BorderLayout());
-		progressBar = new JProgressBar(0, 10);
-		progressBar.setValue(5);
-		add(drawText(name, dev, version, icon), BorderLayout.CENTER);
+		progressBar = new JProgressBar(1, 10);
+		add(drawText(), BorderLayout.CENTER);
 		add(progressBar, BorderLayout.SOUTH);
 		setVisible(true);
 		setSize(WIDTH, HEIGHT);
 		setLocationRelativeTo(null);
-		progressRunner();
+		progressThread();
 		
 	}
 	
-	private void progressRunner(){
+	private void progressThread(){
 		
 		runner = new Thread(this);
 		runner.start();
 		
 	}
 	
-	private JPanel drawText(String name, String dev, String version, String icon){
+	private JPanel drawText(){
 		
 		JPanel outer = new backgroundPanel();
 		outer.setLayout(new GridLayout(3,1));
-		JLabel appName = new JLabel(name + " " + version);
+		JLabel appName = new JLabel(APP_NAME + " " + VERSION);
 		appName.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		JLabel devName = new JLabel(dev);
+		JLabel devName = new JLabel(DEV_NAME);
 		devName.setFont(new Font("Lucida Grande", Font.TRUETYPE_FONT, 12));
 		outer.add(appName);
 		outer.add(devName);
@@ -86,18 +89,34 @@ public final class SplashScreen extends JWindow implements Runnable {
 	@Override
 	public void run() {
 		
-		for(int i = 0; i <= 10; i++){
+		JFrame main = new MainFrame();
+		main.setExtendedState(Integer.parseInt(loadedWindowState));
+		main.setVisible(false);
+		for(int i = 1; i <= 10; i++){
 			try {
 				Thread.sleep(500);
-				progressBar.setValue(progressBar.getValue());
+				progressBar.setValue(progressBar.getValue() + 1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
 		}
 		
-		new MainFrame(name, icon);
+		// Fading the splash
+		for(int i = 5; i >= 0; i--){
+			try {
+				Thread.sleep(200);
+				
+				setOpacity((float) (getOpacity() - 0.15)); 
+				
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		dispose();
+		main.setVisible(true);
 		runner.stop();
 		
 	}

@@ -19,10 +19,21 @@ public final class ActionManager {
 	public static void main(String[] args){
 		
 		configManager = new ConfigManager();
+		fetchFont();
+		fetchTheme();
+	
+		// Spawn the splash screen, then the splash is going to instantiate the main application frame.
+		new SplashScreen(configManager.getWindowState());
 		
+	}
+	
+	private static void fetchFont(){
+		
+		final String FONT_LOCATION = "./resources/lucida_grande.ttf";
+
 		try {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(configManager.getFont())));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(FONT_LOCATION)));
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -33,6 +44,10 @@ public final class ActionManager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+	}
+	
+	private static void fetchTheme(){
 		
 		try {
 			if(configManager.getTheme().equals(configManager.THEME_SEAGLASS)){
@@ -57,8 +72,6 @@ public final class ActionManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		new SplashScreen(configManager.getName() ,configManager.getDev(), configManager.getVersion(), configManager.getIcon());
 		
 	}
 	

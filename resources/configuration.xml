@@ -7,16 +7,6 @@
         <water_color>0,0,0</water_color>
         <thread_manager>automatic</thread_manager>
         <thread_manual_threshold>0</thread_manual_threshold>
-        <windows_state>normal</windows_state>
+        <windows_state>0</windows_state>
     </setting>
-    <info>
-        <name>Krathong 2013</name>
-        <description>This is the part of 01418217 Software Construction.</description>
-        <version>v 1.0 build 1</version>
-    </info>
-    <file>
-        <help>./resources/help.html</help>
-	<icon>./resources/icon.gif</icon>
-	<font>./resources/lucida_grande.ttf</font>
-    </file>
 </config>
